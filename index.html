@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation PCA - Émission de virements | APF France handicap</title>
+    <meta name="description" content="Formation interne PCA pour l'émission de virements - APF France handicap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bleu-apf: #1F5C7A;
+            --orange-apf: #F9A825;
+            --gris-clair: #f5f5f5;
+            --gris-moyen: #666;
+            --blanc: #ffffff;
+            --noir: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--noir);
+            background-color: var(--blanc);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--bleu-apf) 0%, #164a63 100%);
+            color: var(--blanc);
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-container {
+            max-width: 300px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--orange-apf);
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            background: var(--blanc);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: var(--bleu-apf);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--orange-apf);
+        }
+
+        h3 {
+            color: var(--bleu-apf);
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .highlight-box {
+            background: linear-gradient(to right, #e8f4f8, #fff);
+            border-left: 4px solid var(--orange-apf);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-card {
+            background: var(--gris-clair);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-top: 3px solid var(--bleu-apf);
+        }
+
+        .info-card strong {
+            color: var(--bleu-apf);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Accordéon Programme */
+        .accordion {
+            margin: 1rem 0;
+        }
+
+        .accordion-item {
+            margin-bottom: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: var(--bleu-apf);
+            color: var(--blanc);
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .accordion-header:hover {
+            background: #164a63;
+        }
+
+        .accordion-header h3 {
+            color: var(--blanc);
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .accordion-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: var(--blanc);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+        }
+
+        .accordion-body {
+            padding: 1.5rem;
+        }
+
+        .duration {
+            display: inline-block;
+            background: var(--orange-apf);
+            color: var(--blanc);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Carte Google Maps */
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 1.5rem 0;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Boutons de téléchargement */
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, var(--bleu-apf), #164a63);
+            color: var(--blanc);
+            padding: 1.2rem 1.5rem;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        .download-icon {
+            font-size: 2rem;
+            color: var(--orange-apf);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bleu-apf);
+            color: var(--blanc);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: var(--orange-apf);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Liste à puces personnalisée */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        ul li:before {
+            content: "▸";
+            color: var(--orange-apf);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            .map-container {
+                height: 300px;
+            }
+        }
+
+        @media print {
+            header, footer, .download-grid {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="APF France handicap - Risquer l'impossible">
+        </div>
+        <h1>Formation PCA - Émission de virements</h1>
+        <p class="subtitle">Assurer la continuité des paiements en situation de crise</p>
+    </header>
+
+    <div class="container">
+        <!-- Section À propos -->
+        <section id="about">
+            <h2>À propos de la formation</h2>
+            
+            <div class="highlight-box">
+                <p><strong>Cette formation vise à préparer l'équipe support/projet à émettre des virements dans le cadre du Plan de Continuité d'Activité (PCA).</strong></p>
+            </div>
+
+            <p>En situation de crise, les participants doivent être capables de garantir la continuité des paiements (salaires et fournisseurs) en toute sécurité. Cette formation courte et pratique vous permettra de maîtriser les procédures critiques d'émission de virements en contexte PCA.</p>
+
+            <h3>Objectifs de la formation</h3>
+            <p>À l'issue de cette formation, vous serez capable de :</p>
+            <ul>
+                <li>Comprendre le fonctionnement du PCA et votre rôle dans la continuité des paiements</li>
+                <li>Appliquer une procédure sécurisée d'émission de virement en situation exceptionnelle</li>
+                <li>Identifier et vérifier la banque destinataire pour garantir la génération correcte des virements</li>
+                <li>Coopérer et coordonner l'action collective pour assurer la continuité des paiements</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h3>⚠️ Points critiques à maîtriser</h3>
+                <ul>
+                    <li><strong>Ne jamais modifier</strong> les fichiers reçus</li>
+                    <li><strong>Vérifier systématiquement</strong> la banque associée au fichier</li>
+                    <li><strong>Utiliser la table de correspondance Excel</strong> pour dispatcher les fichiers</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section Programme -->
+        <section id="programme">
+            <h2>Programme détaillé</h2>
+            <p>Formation de 3 heures structurée en 5 modules pratiques :</p>
+
+            <div class="accordion">
+                <!-- Module 1 -->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Module 1 : Introduction et contexte PCA</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <span class="duration">⏱ 20 minutes</span>
+                            <p><strong>Objectif :</strong> Rappeler le rôle du PCA et expliquer l'importance des virements</p>
+                            <p><strong>Contenu :</strong></p>
+                            <ul>
+                                <li>Déclenchement du PCA</li>
+                                <li>Enjeux pour les salariés et fournisseurs</li>
+                                <li>Rôle de l'équipe support/projet</li>
+                            </ul>
+                            <p><strong>Activité :</strong> Discussion ouverte sur les risques perçus</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Module 2 : Présentation du processus de virement PCA</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <span class="duration">⏱ 40 minutes</span>
+                            <p><strong>Objectif :</strong> Comprendre le processus global d'émission de virements</p>
+                            <p><strong>Contenu :</strong></p>
+                            <ul>
+                                <li>Réception des fichiers</li>
+                                <li>Contrôles nécessaires</li>
+                                <li>Routage vers la banque</li>
+                                <li>Validation finale</li>
+                            </ul>
+                            <p><strong>Activité :</strong> Analyse collective d'un schéma du processus</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Module 3 : Sécurisation du processus - Vérification de la banque</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <span class="duration">⏱ 40 minutes</span>
+                            <p><strong>Objectif :</strong> Identifier la banque associée à chaque fichier</p>
+                            <div class="highlight-box">
+                                <p><strong>⚠️ Étape critique :</strong> Chaque fichier doit être envoyé à la bonne banque. Les fichiers générés par une autre équipe ne doivent JAMAIS être modifiés.</p>
+                            </div>
+                            <p><strong>Outil utilisé :</strong> Fichier Excel de correspondance contenant :</p>
+                            <ul>
+                                <li>La structure</li>
+                                <li>La banque associée</li>
+                                <li>Le type de fichier</li>
+                            </ul>
+                            <p><strong>Activité :</strong> Analyse de cas pratiques</p>
+                            <p>Les participants doivent :</p>
+                            <ul>
+                                <li>Identifier la structure concernée</li>
+                                <li>Consulter la table de correspondance</li>
+                                <li>Déterminer la banque associée</li>
+                                <li>Confirmer le bon routage du fichier</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 4 -->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Module 4 : Simulation PCA</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <span class="duration">⏱ 60 minutes</span>
+                            <p><strong>Objectif :</strong> Mettre en pratique la procédure complète</p>
+                            <p><strong>Scénario :</strong> Le PCA est déclenché et plusieurs fichiers arrivent</p>
+                            <p><strong>Les participants doivent :</strong></p>
+                            <ul>
+                                <li>Analyser les fichiers reçus</li>
+                                <li>Vérifier la correspondance banque</li>
+                                <li>Répartir les rôles dans l'équipe</li>
+                                <li>Dérouler la procédure avec la check-list</li>
+                            </ul>
+                            <p><strong>Format :</strong> Exercice pratique en équipe avec débriefing</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 5 -->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>Module 5 : Retour d'expérience et amélioration continue</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <span class="duration">⏱ 20 minutes</span>
+                            <p><strong>Objectif :</strong> Capitaliser sur l'expérience et identifier les axes d'amélioration</p>
+                            <p><strong>Discussion collective :</strong></p>
+                            <ul>
+                                <li>Difficultés rencontrées pendant la simulation</li>
+                                <li>Points à sécuriser davantage</li>
+                                <li>Améliorations possibles de la procédure</li>
+                                <li>Questions / réponses</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Informations pratiques -->
+        <section id="infos">
+            <h2>Informations pratiques</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <strong>📅 Date</strong>
+                    <p>Courant mai 2026</p>
+                </div>
+                <div class="info-card">
+                    <strong>⏱ Durée</strong>
+                    <p>3 heures</p>
+                </div>
+                <div class="info-card">
+                    <strong>👥 Public</strong>
+                    <p>Équipe support/projet (3 personnes)</p>
+                </div>
+                <div class="info-card">
+                    <strong>👨‍🏫 Formatrice</strong>
+                    <p>Nolwenn</p>
+                </div>
+            </div>
+
+            <h3>📍 Lieu de la formation</h3>
+            <div class="highlight-box">
+                <p><strong>DSI APF France handicap</strong><br>
+                1 avenue Paul Langevin<br>
+                33600 Pessac</p>
+            </div>
+        </section>
+
+        <!-- Section Carte -->
+        <section id="carte">
+            <h2>Localisation</h2>
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2829.5!2d-0.6308!3d44.8067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54d7f3b0000000%3A0x0!2s1%20Avenue%20Paul%20Langevin%2C%2033600%20Pessac!5e0!3m2!1sfr!2sfr!4v1234567890"
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Carte de localisation - DSI APF France handicap, Pessac">
+                </iframe>
+            </div>
+        </section>
+
+        <!-- Section Documents -->
+        <section id="documents">
+            <h2>Documents à télécharger</h2>
+            <p>Retrouvez tous les documents de la formation :</p>
+            
+            <div class="download-grid">
+                <a href="programme.pdf" class="download-btn" download>
+                    <span class="download-icon">📄</span>
+                    <span>Programme de formation</span>
+                </a>
+                
+                <a href="livret-stagiaire.pdf" class="download-btn" download>
+                    <span class="download-icon">📖</span>
+                    <span>Livret stagiaire</span>
+                </a>
+                
+                <a href="support-formation-pca.pdf" class="download-btn" download>
+                    <span class="download-icon">📊</span>
+                    <span>Support de formation</span>
+                </a>
+                
+                <a href="operational-blueprint.pdf" class="download-btn" download>
+                    <span class="download-icon">🔧</span>
+                    <span>Operational Blueprint</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section id="contact">
+            <h2>Contact</h2>
+            <div class="highlight-box">
+                <p><strong>Formatrice :</strong> Nolwenn</p>
+                <p><strong>Email :</strong> <a href="mailto:nolwenn.bourlat@apf.asso.fr">nolwenn.bourlat@apf.asso.fr</a></p>
+            </div>
+            
+            <h3>♿ Accessibilité</h3>
+            <p>APF France handicap s'engage pour l'accessibilité de ses formations. Pour toute question relative à l'accessibilité ou à des aménagements spécifiques, contactez : <a href="mailto:nolwenn.bourlat@apf.asso.fr">nolwenn.bourlat@apf.asso.fr</a></p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 APF France handicap - DSI | Tous droits réservés</p>
+        <p><strong>Risquer l'impossible</strong></p>
+    </footer>
+
+    <script>
+        // Script pour l'accordéon
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const item = this.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // Fermer tous les accordéons
+                document.querySelectorAll('.accordion-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                
+                // Ouvrir celui cliqué si il n'était pas déjà ouvert
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Ouvrir le premier module par défaut
+        document.querySelector('.accordion-item').classList.add('active');
+    </script>
+</body>
+</html>
